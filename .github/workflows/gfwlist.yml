@@ -35,7 +35,7 @@ jobs:
     - name: Check for changes
       id: check_changes
       run: |
-        git diff --exit-code list/gfwlist.conf || echo "changes=true" >> $GITHUB_OUTPUT
+        git diff --exit-code list/non_ip/gfwlist.conf || echo "changes=true" >> $GITHUB_OUTPUT
         
     - name: Commit and push if changed
       if: steps.check_changes.outputs.changes == 'true'
@@ -44,7 +44,7 @@ jobs:
         git config --local user.name "github-actions[bot]"
         
         # 先暂存所有更改
-        git add list/gfwlist.conf
+        git add list/non_ip/gfwlist.conf
         
         # 获取远程更新
         git fetch origin main
@@ -55,7 +55,7 @@ jobs:
         # 将更改应用到新分支
         git checkout main
         git reset --soft temp-branch
-        git add list/gfwlist.conf
+        git add list/non_ip/gfwlist.conf
         
         # 提交并推送
         git commit -m "chore: update gfwlist.conf [skip ci]"
