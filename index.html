@@ -4,14 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Directory Index</title>
+    <title>List</title>
     <style>
         :root {
             --text-primary: #24292f;
             --text-secondary: #57606a;
-            --border-color: #d0d7de;
-            --hover-bg: #f6f8fa;
-            --link-color: #0969da;
+            --link-color: #57606a;
+            --hover-color: #0969da;
         }
         
         body {
@@ -20,10 +19,11 @@
             margin: 0;
             padding: 20px;
             color: var(--text-primary);
+            background: #fff;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         
@@ -31,407 +31,335 @@
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 16px;
+            color: var(--text-primary);
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 16px;
-        }
-        
-        th {
-            text-align: left;
-            padding: 8px 16px;
-            font-weight: 600;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-secondary);
         }
         
         td {
-            padding: 8px 16px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        tr:hover {
-            background-color: var(--hover-bg);
+            padding: 4px 0;
+            position: relative;
         }
         
         .name {
-            width: 60%;
             display: flex;
             align-items: center;
+            position: relative;
         }
         
         .icon {
             width: 16px;
             height: 16px;
-            margin-right: 8px;
+            margin-right: 4px;
             color: var(--text-secondary);
+            flex-shrink: 0;
         }
         
-        .size {
-            width: 20%;
-            color: var(--text-secondary);
-        }
-        
-        .date {
-            width: 20%;
-            color: var(--text-secondary);
+        .vertical-line {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: #eaecef;
+            top: 0;
         }
         
         a {
             color: var(--link-color);
             text-decoration: none;
+            font-size: 14px;
         }
         
         a:hover {
+            color: var(--hover-color);
             text-decoration: underline;
         }
         
-        .footer {
-            margin-top: 32px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 12px;
-            text-align: center;
+        .directory {
+            font-weight: 600;
         }
         
-        @media (max-width: 768px) {
-            .date {
-                display: none;
-            }
-            .name {
-                width: 70%;
-            }
-            .size {
-                width: 30%;
-            }
+        .file {
+            font-weight: normal;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Directory Index</h1>
+        <h1>List</h1>
         <table>
-            <thead>
-                <tr>
-                    <th class="name">Name</th>
-                    <th class="size">Size</th>
-                    <th class="date">Last Modified</th>
-                </tr>
-            </thead>
             <tbody>
                 
       <tr>
         <td class="name" style="padding-left: 0px">
+          
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M1.75 2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25H7.5c-.55 0-1.07-.26-1.4-.7l-.9-1.2a.25.25 0 00-.2-.1H1.75z"/></svg>
-          <a href="/list">list</a>
+          <a href="/list" class="directory">list</a>
         </td>
-        <td class="size">-</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 24px">
+        <td class="name" style="padding-left: 20px">
+          <div class="vertical-line" style="left: 10px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M1.75 2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25H7.5c-.55 0-1.07-.26-1.4-.7l-.9-1.2a.25.25 0 00-.2-.1H1.75z"/></svg>
-          <a href="/list/domainset">domainset</a>
+          <a href="/list/domainset" class="directory">domainset</a>
         </td>
-        <td class="size">-</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/domainset/cdn.conf">cdn.conf</a>
+          <a href="/list/domainset/cdn.conf" class="file">cdn.conf</a>
         </td>
-        <td class="size">52.86 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/domainset/download.conf">download.conf</a>
+          <a href="/list/domainset/download.conf" class="file">download.conf</a>
         </td>
-        <td class="size">19.24 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/domainset/reject.conf">reject.conf</a>
+          <a href="/list/domainset/reject.conf" class="file">reject.conf</a>
         </td>
-        <td class="size">2.16 MB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/domainset/speedtest.conf">speedtest.conf</a>
+          <a href="/list/domainset/speedtest.conf" class="file">speedtest.conf</a>
         </td>
-        <td class="size">9.35 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 24px">
+        <td class="name" style="padding-left: 20px">
+          <div class="vertical-line" style="left: 10px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M1.75 2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25H7.5c-.55 0-1.07-.26-1.4-.7l-.9-1.2a.25.25 0 00-.2-.1H1.75z"/></svg>
-          <a href="/list/ip">ip</a>
+          <a href="/list/ip" class="directory">ip</a>
         </td>
-        <td class="size">-</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/ip/china_ip.conf">china_ip.conf</a>
+          <a href="/list/ip/china_ip.conf" class="file">china_ip.conf</a>
         </td>
-        <td class="size">97.61 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/ip/domestic.conf">domestic.conf</a>
+          <a href="/list/ip/domestic.conf" class="file">domestic.conf</a>
         </td>
-        <td class="size">506.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/ip/lan.conf">lan.conf</a>
+          <a href="/list/ip/lan.conf" class="file">lan.conf</a>
         </td>
-        <td class="size">633.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/ip/reject.conf">reject.conf</a>
+          <a href="/list/ip/reject.conf" class="file">reject.conf</a>
         </td>
-        <td class="size">5.29 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/ip/stream.conf">stream.conf</a>
+          <a href="/list/ip/stream.conf" class="file">stream.conf</a>
         </td>
-        <td class="size">1.70 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/ip/telegram.conf">telegram.conf</a>
+          <a href="/list/ip/telegram.conf" class="file">telegram.conf</a>
         </td>
-        <td class="size">913.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 24px">
+        <td class="name" style="padding-left: 20px">
+          <div class="vertical-line" style="left: 10px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M1.75 2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25H7.5c-.55 0-1.07-.26-1.4-.7l-.9-1.2a.25.25 0 00-.2-.1H1.75z"/></svg>
-          <a href="/list/non_ip">non_ip</a>
+          <a href="/list/non_ip" class="directory">non_ip</a>
         </td>
-        <td class="size">-</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/ai.conf">ai.conf</a>
+          <a href="/list/non_ip/ai.conf" class="file">ai.conf</a>
         </td>
-        <td class="size">1.38 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/apple_cdn.conf">apple_cdn.conf</a>
+          <a href="/list/non_ip/apple_cdn.conf" class="file">apple_cdn.conf</a>
         </td>
-        <td class="size">7.03 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/apple_cn.conf">apple_cn.conf</a>
+          <a href="/list/non_ip/apple_cn.conf" class="file">apple_cn.conf</a>
         </td>
-        <td class="size">717.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/apple_services.conf">apple_services.conf</a>
+          <a href="/list/non_ip/apple_services.conf" class="file">apple_services.conf</a>
         </td>
-        <td class="size">1.08 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/cdn.conf">cdn.conf</a>
+          <a href="/list/non_ip/cdn.conf" class="file">cdn.conf</a>
         </td>
-        <td class="size">2.04 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/domestic.conf">domestic.conf</a>
+          <a href="/list/non_ip/domestic.conf" class="file">domestic.conf</a>
         </td>
-        <td class="size">19.44 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/download.conf">download.conf</a>
+          <a href="/list/non_ip/download.conf" class="file">download.conf</a>
         </td>
-        <td class="size">610.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/global.conf">global.conf</a>
+          <a href="/list/non_ip/global.conf" class="file">global.conf</a>
         </td>
-        <td class="size">18.14 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/lan.conf">lan.conf</a>
+          <a href="/list/non_ip/lan.conf" class="file">lan.conf</a>
         </td>
-        <td class="size">415.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/microsoft_cdn.conf">microsoft_cdn.conf</a>
+          <a href="/list/non_ip/microsoft_cdn.conf" class="file">microsoft_cdn.conf</a>
         </td>
-        <td class="size">1.27 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/microsoft.conf">microsoft.conf</a>
+          <a href="/list/non_ip/microsoft.conf" class="file">microsoft.conf</a>
         </td>
-        <td class="size">2.56 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/paypal.conf">paypal.conf</a>
+          <a href="/list/non_ip/paypal.conf" class="file">paypal.conf</a>
         </td>
-        <td class="size">7.68 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/reject-drop.conf">reject-drop.conf</a>
+          <a href="/list/non_ip/reject-drop.conf" class="file">reject-drop.conf</a>
         </td>
-        <td class="size">573.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/reject-no-drop.conf">reject-no-drop.conf</a>
+          <a href="/list/non_ip/reject-no-drop.conf" class="file">reject-no-drop.conf</a>
         </td>
-        <td class="size">621.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/reject.conf">reject.conf</a>
+          <a href="/list/non_ip/reject.conf" class="file">reject.conf</a>
         </td>
-        <td class="size">5.35 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/stream.conf">stream.conf</a>
+          <a href="/list/non_ip/stream.conf" class="file">stream.conf</a>
         </td>
-        <td class="size">9.81 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 48px">
+        <td class="name" style="padding-left: 40px">
+          <div class="vertical-line" style="left: 30px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/list/non_ip/telegram.conf">telegram.conf</a>
+          <a href="/list/non_ip/telegram.conf" class="file">telegram.conf</a>
         </td>
-        <td class="size">774.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
         <td class="name" style="padding-left: 0px">
+          
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M1.75 2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25H7.5c-.55 0-1.07-.26-1.4-.7l-.9-1.2a.25.25 0 00-.2-.1H1.75z"/></svg>
-          <a href="/modules">modules</a>
+          <a href="/modules" class="directory">modules</a>
         </td>
-        <td class="size">-</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 24px">
+        <td class="name" style="padding-left: 20px">
+          <div class="vertical-line" style="left: 10px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/modules/adblock.sgmodule">adblock.sgmodule</a>
+          <a href="/modules/adblock.sgmodule" class="file">adblock.sgmodule</a>
         </td>
-        <td class="size">1.98 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 24px">
+        <td class="name" style="padding-left: 20px">
+          <div class="vertical-line" style="left: 10px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/modules/general.sgmodule">general.sgmodule</a>
+          <a href="/modules/general.sgmodule" class="file">general.sgmodule</a>
         </td>
-        <td class="size">2.72 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 24px">
+        <td class="name" style="padding-left: 20px">
+          <div class="vertical-line" style="left: 10px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/modules/local_dns_mapping.sgmodule">local_dns_mapping.sgmodule</a>
+          <a href="/modules/local_dns_mapping.sgmodule" class="file">local_dns_mapping.sgmodule</a>
         </td>
-        <td class="size">17.02 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
-        <td class="name" style="padding-left: 24px">
+        <td class="name" style="padding-left: 20px">
+          <div class="vertical-line" style="left: 10px"></div>
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/modules/router.sgmodule">router.sgmodule</a>
+          <a href="/modules/router.sgmodule" class="file">router.sgmodule</a>
         </td>
-        <td class="size">933.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
         <td class="name" style="padding-left: 0px">
+          
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/index.html">index.html</a>
+          <a href="/index.html" class="file">index.html</a>
         </td>
-        <td class="size">9.20 KB</td>
-        <td class="date">2024-12-21</td>
       </tr>
       <tr>
         <td class="name" style="padding-left: 0px">
+          
           <svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>
-          <a href="/README.md">README.md</a>
+          <a href="/README.md" class="file">README.md</a>
         </td>
-        <td class="size">9.00 B</td>
-        <td class="date">2024-12-21</td>
       </tr>
             </tbody>
         </table>
-        <div class="footer">
-            Generated on Sat, 21 Dec 2024 02:06:53 GMT
-        </div>
     </div>
 </body>
 </html>
