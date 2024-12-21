@@ -8,7 +8,7 @@ class GFWListConverter:
     def __init__(self):
         self.gfwlist_url = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"
         self.domains = set()
-        self.output_dir = "list"
+        self.output_dir = "list/non_ip"
         self.output_file = os.path.join(self.output_dir, "gfwlist.conf")
 
     def fetch_and_decode(self):
