@@ -118,7 +118,12 @@ jobs:
               <meta charset="utf-8">
               <meta name="viewport" content="width=device-width, initial-scale=1">
               <title>Ruleset for Surge</title>
-              <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/22018508?v=4">
+              <link href="https://ruleset.kerwin.us.kg/favicon/favicon.ico" rel="icon" type="image/ico">
+              <link href="https://ruleset.kerwin.us.kg/favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+              <link href="https://ruleset.kerwin.us.kg/favicon/android-chrome-192x192.png" rel="icon" type="image/png" sizes="192x192">
+              <link href="https://ruleset.kerwin.us.kg/favicon/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
+              <link href="https://ruleset.kerwin.us.kg/favicon/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
+              <meta name="description" content="Surge 规则组">
               <style>
                   :root {
                       --text-primary: #24292f;
