@@ -201,7 +201,7 @@ jobs:
           </head>
           <body>
               <div class="container">
-                  <h1>List</h1>
+                  <h1>Ruleset for Surge</h1>
                   <table>
                       <tbody>
                           ${generateTreeHTML(tree)}
