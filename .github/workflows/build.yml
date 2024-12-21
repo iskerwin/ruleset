@@ -51,8 +51,6 @@ jobs:
                   name: file,
                   path: relativePath,
                   type: 'directory',
-                  size: 0,
-                  mtime: stat.mtime,
                   children: getFileTree(fullPath, relativePath)
                 });
               }
@@ -70,9 +68,7 @@ jobs:
                 results.push({
                   name: file,
                   path: relativePath,
-                  type: 'file',
-                  size: stat.size,
-                  mtime: stat.mtime
+                  type: 'file'
                 });
               }
             });
@@ -87,39 +83,23 @@ jobs:
             });
           }
 
-          function formatSize(bytes) {
-            const units = ['B', 'KB', 'MB', 'GB'];
-            let size = bytes;
-            let unitIndex = 0;
-            
-            while (size >= 1024 && unitIndex < units.length - 1) {
-              size /= 1024;
-              unitIndex++;
-            }
-            
-            return `${size.toFixed(2)} ${units[unitIndex]}`;
-          }
-
-          function formatDate(date) {
-            return date.toISOString().split('T')[0];
-          }
-
           function generateTreeHTML(items, level = 0) {
             return items.map(item => {
-              const indent = level * 24;
+              const indent = level * 20; // 减小缩进距离
               const isDirectory = item.type === 'directory';
               const icon = isDirectory ? 
                 '<svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M1.75 2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25H7.5c-.55 0-1.07-.26-1.4-.7l-.9-1.2a.25.25 0 00-.2-.1H1.75z"/></svg>' : 
                 '<svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>';
 
+              const verticalLine = level > 0 ? `<div class="vertical-line" style="left: ${indent - 10}px"></div>` : '';
+
               let html = `
                 <tr>
                   <td class="name" style="padding-left: ${indent}px">
+                    ${verticalLine}
                     ${icon}
-                    <a href="/${item.path}">${item.name}</a>
+                    <a href="/${item.path}" class="${isDirectory ? 'directory' : 'file'}">${item.name}</a>
                   </td>
-                  <td class="size">${isDirectory ? '-' : formatSize(item.size)}</td>
-                  <td class="date">${formatDate(item.mtime)}</td>
                 </tr>`;
 
               if (isDirectory && item.children) {
@@ -137,14 +117,13 @@ jobs:
           <head>
               <meta charset="utf-8">
               <meta name="viewport" content="width=device-width, initial-scale=1">
-              <title>Directory Index</title>
+              <title>List</title>
               <style>
                   :root {
                       --text-primary: #24292f;
                       --text-secondary: #57606a;
-                      --border-color: #d0d7de;
-                      --hover-bg: #f6f8fa;
-                      --link-color: #0969da;
+                      --link-color: #57606a;
+                      --hover-color: #0969da;
                   }
                   
                   body {
@@ -153,10 +132,11 @@ jobs:
                       margin: 0;
                       padding: 20px;
                       color: var(--text-primary);
+                      background: #fff;
                   }
                   
                   .container {
-                      max-width: 1200px;
+                      max-width: 1000px;
                       margin: 0 auto;
                   }
                   
@@ -164,103 +144,69 @@ jobs:
                       font-size: 24px;
                       font-weight: 600;
                       margin-bottom: 16px;
+                      color: var(--text-primary);
                   }
                   
                   table {
                       width: 100%;
                       border-collapse: collapse;
-                      margin-top: 16px;
-                  }
-                  
-                  th {
-                      text-align: left;
-                      padding: 8px 16px;
-                      font-weight: 600;
-                      border-bottom: 1px solid var(--border-color);
-                      color: var(--text-secondary);
                   }
                   
                   td {
-                      padding: 8px 16px;
-                      border-bottom: 1px solid var(--border-color);
-                  }
-                  
-                  tr:hover {
-                      background-color: var(--hover-bg);
+                      padding: 4px 0;
+                      position: relative;
                   }
                   
                   .name {
-                      width: 60%;
                       display: flex;
                       align-items: center;
+                      position: relative;
                   }
                   
                   .icon {
                       width: 16px;
                       height: 16px;
-                      margin-right: 8px;
+                      margin-right: 4px;
                       color: var(--text-secondary);
+                      flex-shrink: 0;
                   }
                   
-                  .size {
-                      width: 20%;
-                      color: var(--text-secondary);
-                  }
-                  
-                  .date {
-                      width: 20%;
-                      color: var(--text-secondary);
+                  .vertical-line {
+                      position: absolute;
+                      width: 2px;
+                      height: 100%;
+                      background: #eaecef;
+                      top: 0;
                   }
                   
                   a {
                       color: var(--link-color);
                       text-decoration: none;
+                      font-size: 14px;
                   }
                   
                   a:hover {
+                      color: var(--hover-color);
                       text-decoration: underline;
                   }
                   
-                  .footer {
-                      margin-top: 32px;
-                      padding-top: 16px;
-                      border-top: 1px solid var(--border-color);
-                      color: var(--text-secondary);
-                      font-size: 12px;
-                      text-align: center;
+                  .directory {
+                      font-weight: 600;
                   }
                   
-                  @media (max-width: 768px) {
-                      .date {
-                          display: none;
-                      }
-                      .name {
-                          width: 70%;
-                      }
-                      .size {
-                          width: 30%;
-                      }
+                  .file {
+                      font-weight: normal;
                   }
               </style>
           </head>
           <body>
               <div class="container">
-                  <h1>Directory Index</h1>
+                  <h1>List</h1>
                   <table>
-                      <thead>
-                          <tr>
-                              <th class="name">Name</th>
-                              <th class="size">Size</th>
-                              <th class="date">Last Modified</th>
-                          </tr>
-                      </thead>
                       <tbody>
                           ${generateTreeHTML(tree)}
                       </tbody>
                   </table>
-                  <div class="footer">
-                      Generated on ${new Date().toUTCString()}
-                  </div>
               </div>
           </body>
           </html>`;
