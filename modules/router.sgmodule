@@ -1,0 +1,21 @@
+#!name=Local DNS Mapping
+#!desc=路由器管理面板
+#!url=https://proxy.kerwin.us.kg/modules/router.sgmodule
+
+[Host]
+melogin.cn = server:syslib // MERCURY Router
+falogin.cn = server:syslib // FAST Router
+miwifi.com = server:syslib // Xiaomi Mi WiFi Router
+tplogin.cn = server:syslib // TP-Link Router
+amplifi.lan = server:syslib // Ubiquiti Amplifi Router
+orbilogin.com = server:syslib // Netgear Obri Router
+myrouter.local = server:syslib // Linksys Router
+www.miwifi.com = server:syslib // Xiaomi Mi WiFi Router
+sila.razer.com = server:syslib // Razer Sila Router
+tplinklogin.net = server:syslib // TP-Link Router
+router.asus.com = server:syslib // Asus Router
+routerlogin.net = server:syslib // Netgear Router
+mediarouter.home = server:syslib // Huawei Router
+router.synology.com = server:syslib // Synology Router
+LinksysSmartWiFi.com = server:syslib // Linksys Router
+www.LinksysSmartWiFi.com = server:syslib // Linksys Router

@@ -1,0 +1,52 @@
+#!name=Advanced Settings & URL Redirect
+#!desc=高级设置及通用的 URL 重定向优化（如 Google 搜索、地图、AbeamTV 区域限制等）
+#!url=https://proxy.kerwin.us.kg/modules/general.sgmodule
+
+[General]
+# 跳过代理的 IP 范围和域名
+skip-proxy = 127.0.0.0/8, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 100.64.0.0/10, fc00::/7, fe80::/10, localhost, *.local, captive.apple.com, passenger.t3go.cn, *.ccb.com, wxh.wo.cn, *.abcchina.com, *.abcchina.com.cn
+
+# 真实 IP 直连（避免经过代理）
+always-real-ip = %APPEND% *.msftconnecttest.com, *.msftncsi.com, *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, *.logon.battlenet.com.cn, *.logon.battle.net, stun.l.google.com
+
+# 排除的多播路由
+tun-excluded-routes = %APPEND% 239.255.255.250/32
+
+[URL Rewrite]
+# Google 服务重定向
+^https?:\/\/(www\.)?(g|google)\.cn https://www.google.com 302
+^https?:\/\/(ditu|maps)\.google\.cn https://maps.google.com 302
+
+# 淘宝、京东等站点重定向到 HTTPS
+^https?:\/\/(www\.)?taobao\.com\/ https://taobao.com/ 302
+^https?:\/\/(www\.)?jd\.com\/ https://www.jd.com/ 302
+^https?:\/\/(www\.)?mi\.com\/ https://www.mi.com/ 302
+^https?:\/\/you\.163\.com\/ https://you.163.com/ 302
+^https?:\/\/(www\.)?suning\.com\/ https://suning.com/ 302
+^https?:\/\/(www\.)?yhd\.com\/ https://yhd.com/ 302
+
+# Firefox 官网重定向
+^https?:\/\/(www\.)?firefox\.com\.cn\/(download\/)?$ https://www.mozilla.org/zh-CN/firefox/new/ 302
+
+# IGN 中国重定向到全球站点
+^https?:\/\/(www\.)?ign\.xn--fiqs8s\/ http://cn.ign.com/ccpref/us 302
+
+# 假冒软件站点重定向
+^https?:\/\/(www\.)?abbyychina\.com\/ https://www.abbyy.cn/ 302
+^https?:\/\/(www\.)?anydeskchina\.cn\/ https://anydesk.com/zhs 302
+^https?:\/\/(www\.)?bartender\.cc\/ https://www.macbartender.com/ 302
+^https?:\/\/(www\.)?(betterzipcn|betterzip)\.(com|net)\/ https://macitbetter.com/ 302
+^https?:\/\/(www\.)?beyondcompare\.cc\/ https://www.scootersoftware.com/ 302
+^https?:\/\/(www\.)?bingdianhuanyuan\.cn\/ https://www.faronics.com/zh-hans/products/deep-freeze 302
+^https?:\/\/(www\.)?chemdraw\.com\.cn\/ https://www.perkinelmer.com.cn/ 302
+^https?:\/\/(www\.)?codesoftchina\.com\/ https://www.teklynx.com/ 302
+^https?:\/\/(www\.)?coreldrawchina\.com\/ https://www.coreldraw.com/cn/ 302
+^https?:\/\/(www\.)?crossoverchina\.com\/ https://www.codeweavers.com/ 302
+^https?:\/\/(www\.)?dongmansoft\.com\/ https://www.udongman.cn/ 302
+
+# AbeamTV 区域限制
+^https?:\/\/api\.[\w-]+\.abema-tv\.com\/v\d\/ip\/check - reject
+
+[MITM]
+# HTTPS 解密的目标域名
+hostname = %APPEND% www.google.cn, www.firefox.com.cn, api.*.abema-tv.com, app.biliintl.com, passport.biliintl.com, -*.apple.com, -*.icloud.com, -*.mzstatic.com, -*.crashlytics.com, -*.facebook.com, -*.instagram.com
