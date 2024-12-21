@@ -7,7 +7,7 @@ on:
   push:
     paths:
       - '.github/workflows/update-gfwlist.yml'
-      - 'scripts/gfwlist_converter.py'
+      - '.github/scripts/gfwlist_converter.py'
 
 jobs:
   update:
@@ -29,7 +29,7 @@ jobs:
         pip install requests
         
     - name: Update GFWList
-      run: python scripts/gfwlist_converter.py
+      run: python .github/scripts/gfwlist_converter.py
         
     - name: Check for changes
       id: check_changes
