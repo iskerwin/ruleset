@@ -1,0 +1,151 @@
+# .github/workflows/build.yml
+name: Generate Directory Index
+
+on:
+  push:
+    branches:
+      - main  # 或者你的默认分支名
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Generate Directory Index
+        run: |
+          cat > generate-index.js << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          function shouldSkipPath(p) {
+            return p.includes('.git') || 
+                   p.includes('.github') || 
+                   p.includes('node_modules') ||
+                   p === 'generate-index.js';
+          }
+
+          function getAllFiles(dir) {
+            let results = [];
+            
+            const list = fs.readdirSync(dir);
+            
+            list.forEach(file => {
+              const fullPath = path.join(dir, file);
+              if (shouldSkipPath(fullPath)) return;
+              
+              const stat = fs.statSync(fullPath);
+              if (stat && stat.isDirectory()) {
+                results = results.concat(getAllFiles(fullPath));
+              } else {
+                results.push(fullPath);
+              }
+            });
+            
+            return results;
+          }
+
+          function generateHTML(files) {
+            const fileLinks = files.map(file => {
+              // 转换为网页URL路径格式
+              const urlPath = file.split(path.sep).join('/');
+              // 获取文件大小
+              const stats = fs.statSync(file);
+              const size = (stats.size / 1024).toFixed(2);
+              
+              return `
+                <div class="item">
+                  <a href="/${urlPath}">${urlPath}</a>
+                  <span class="size">${size} KB</span>
+                </div>`;
+            }).join('\n');
+
+            return `
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <title>Ruleset Directory</title>
+              <style>
+                  body { 
+                      font-family: system-ui;
+                      max-width: 900px;
+                      margin: 20px auto;
+                      padding: 0 20px;
+                      background: #f7f7f7;
+                  }
+                  .container {
+                      background: white;
+                      padding: 20px;
+                      border-radius: 8px;
+                      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                  }
+                  h2 { 
+                      margin-top: 0;
+                      color: #2c3e50;
+                  }
+                  .item {
+                      padding: 12px;
+                      border-bottom: 1px solid #eee;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                  }
+                  .item:hover {
+                      background: #f8f9fa;
+                  }
+                  a { 
+                      color: #0051c3;
+                      text-decoration: none;
+                      flex-grow: 1;
+                  }
+                  a:hover {
+                      text-decoration: underline;
+                  }
+                  .size {
+                      color: #666;
+                      font-size: 0.9em;
+                      margin-left: 15px;
+                  }
+                  .update-time {
+                      color: #666;
+                      font-size: 0.9em;
+                      margin-top: 20px;
+                      text-align: center;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h2>Ruleset Directory</h2>
+                  ${fileLinks}
+                  <div class="update-time">
+                      Last updated: ${new Date().toUTCString()}
+                  </div>
+              </div>
+          </body>
+          </html>`;
+          }
+
+          const files = getAllFiles('.');
+          const html = generateHTML(files);
+          fs.writeFileSync('index.html', html);
+          EOF
+
+          node generate-index.js
+          
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git commit -m "Update directory index" || exit 0
+          git push
