@@ -7,7 +7,7 @@ on:
   push:
     paths:
       - '.github/workflows/update-gfwlist.yml'
-      - 'scripts/gfwlist_converter.py'
+      - '.github/scripts/gfwlist_converter.py'
 
 jobs:
   update:
