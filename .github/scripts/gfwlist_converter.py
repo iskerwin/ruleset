@@ -82,9 +82,9 @@ class GFWListConverter:
             f.write('#!desc=Generated from GFWList\n')
             f.write(f'#!updated={datetime.now().strftime("%Y-%m-%d %H:%M:%S")}\n\n')
             
-            # 写入域名规则
+            # 写入域名规则，不包含代理标记
             for domain in sorted(self.domains):
-                f.write(f'DOMAIN-SUFFIX,{domain},PROXY\n')
+                f.write(f'DOMAIN-SUFFIX,{domain}\n')
 
         print(f"Generated {len(self.domains)} rules")
         return True
