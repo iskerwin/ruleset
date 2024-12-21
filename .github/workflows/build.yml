@@ -34,24 +34,57 @@ jobs:
                    p === 'generate-index.js';
           }
 
-          function getAllFiles(dir) {
+          function getFileTree(dir, baseDir = '') {
             let results = [];
-            
             const list = fs.readdirSync(dir);
             
+            // 首先处理目录
             list.forEach(file => {
               const fullPath = path.join(dir, file);
+              const relativePath = path.join(baseDir, file);
+              
               if (shouldSkipPath(fullPath)) return;
               
               const stat = fs.statSync(fullPath);
               if (stat && stat.isDirectory()) {
-                results = results.concat(getAllFiles(fullPath));
-              } else {
-                results.push(fullPath);
+                results.push({
+                  name: file,
+                  path: relativePath,
+                  type: 'directory',
+                  size: 0,
+                  mtime: stat.mtime,
+                  children: getFileTree(fullPath, relativePath)
+                });
               }
             });
             
-            return results.sort();
+            // 然后处理文件
+            list.forEach(file => {
+              const fullPath = path.join(dir, file);
+              const relativePath = path.join(baseDir, file);
+              
+              if (shouldSkipPath(fullPath)) return;
+              
+              const stat = fs.statSync(fullPath);
+              if (stat && !stat.isDirectory()) {
+                results.push({
+                  name: file,
+                  path: relativePath,
+                  type: 'file',
+                  size: stat.size,
+                  mtime: stat.mtime
+                });
+              }
+            });
+            
+            return results.sort((a, b) => {
+              // 目录优先
+              if (a.type !== b.type) {
+                return a.type === 'directory' ? -1 : 1;
+              }
+              // 然后按名称排序
+              return a.name.localeCompare(b.name);
+            });
           }
 
           function formatSize(bytes) {
@@ -71,21 +104,33 @@ jobs:
             return date.toISOString().split('T')[0];
           }
 
-          function generateHTML(files) {
-            const fileLinks = files.map(file => {
-              const urlPath = file.split(path.sep).join('/');
-              const stats = fs.statSync(file);
-              const size = formatSize(stats.size);
-              const mtime = formatDate(stats.mtime);
-              
-              return `
-                <tr>
-                  <td class="name"><a href="/${urlPath}">${urlPath}</a></td>
-                  <td class="size">${size}</td>
-                  <td class="date">${mtime}</td>
-                </tr>`;
-            }).join('\n');
+          function generateTreeHTML(items, level = 0) {
+            return items.map(item => {
+              const indent = level * 24;
+              const isDirectory = item.type === 'directory';
+              const icon = isDirectory ? 
+                '<svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M1.75 2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25H7.5c-.55 0-1.07-.26-1.4-.7l-.9-1.2a.25.25 0 00-.2-.1H1.75z"/></svg>' : 
+                '<svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"/></svg>';
 
+              let html = `
+                <tr>
+                  <td class="name" style="padding-left: ${indent}px">
+                    ${icon}
+                    <a href="/${item.path}">${item.name}</a>
+                  </td>
+                  <td class="size">${isDirectory ? '-' : formatSize(item.size)}</td>
+                  <td class="date">${formatDate(item.mtime)}</td>
+                </tr>`;
+
+              if (isDirectory && item.children) {
+                html += generateTreeHTML(item.children, level + 1);
+              }
+
+              return html;
+            }).join('');
+          }
+
+          function generateHTML(tree) {
             return `
           <!DOCTYPE html>
           <html lang="en">
@@ -146,6 +191,15 @@ jobs:
                   
                   .name {
                       width: 60%;
+                      display: flex;
+                      align-items: center;
+                  }
+                  
+                  .icon {
+                      width: 16px;
+                      height: 16px;
+                      margin-right: 8px;
+                      color: var(--text-secondary);
                   }
                   
                   .size {
@@ -201,7 +255,7 @@ jobs:
                           </tr>
                       </thead>
                       <tbody>
-                          ${fileLinks}
+                          ${generateTreeHTML(tree)}
                       </tbody>
                   </table>
                   <div class="footer">
@@ -212,8 +266,8 @@ jobs:
           </html>`;
           }
 
-          const files = getAllFiles('.');
-          const html = generateHTML(files);
+          const tree = getFileTree('.');
+          const html = generateHTML(tree);
           fs.writeFileSync('index.html', html);
           EOF
 
