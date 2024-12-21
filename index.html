@@ -1,229 +1,320 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ruleset Directory</title>
+    <title>Directory Index</title>
     <style>
-        body { 
-            font-family: system-ui;
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 0 20px;
-            background: #f7f7f7;
+        :root {
+            --text-primary: #24292f;
+            --text-secondary: #57606a;
+            --border-color: #d0d7de;
+            --hover-bg: #f6f8fa;
+            --link-color: #0969da;
         }
-        .container {
-            background: white;
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            margin: 0;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: var(--text-primary);
         }
-        h2 { 
-            margin-top: 0;
-            color: #2c3e50;
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .item {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
-        .item:hover {
-            background: #f8f9fa;
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
         }
-        a { 
-            color: #0051c3;
+        
+        th {
+            text-align: left;
+            padding: 8px 16px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        td {
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        tr:hover {
+            background-color: var(--hover-bg);
+        }
+        
+        .name {
+            width: 60%;
+        }
+        
+        .size {
+            width: 20%;
+            color: var(--text-secondary);
+        }
+        
+        .date {
+            width: 20%;
+            color: var(--text-secondary);
+        }
+        
+        a {
+            color: var(--link-color);
             text-decoration: none;
-            flex-grow: 1;
         }
+        
         a:hover {
             text-decoration: underline;
         }
-        .size {
-            color: #666;
-            font-size: 0.9em;
-            margin-left: 15px;
-        }
-        .update-time {
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 20px;
+        
+        .footer {
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 12px;
             text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .date {
+                display: none;
+            }
+            .name {
+                width: 70%;
+            }
+            .size {
+                width: 30%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Ruleset Directory</h2>
-        
-      <div class="item">
-        <a href="/README.md">README.md</a>
-        <span class="size">0.01 KB</span>
-      </div>
+        <h1>Directory Index</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th class="name">Name</th>
+                    <th class="size">Size</th>
+                    <th class="date">Last Modified</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+      <tr>
+        <td class="name"><a href="/README.md">README.md</a></td>
+        <td class="size">9.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/index.html">index.html</a>
-        <span class="size">6.45 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/index.html">index.html</a></td>
+        <td class="size">6.45 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/domainset/cdn.conf">list/domainset/cdn.conf</a>
-        <span class="size">52.86 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/domainset/cdn.conf">list/domainset/cdn.conf</a></td>
+        <td class="size">52.86 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/domainset/download.conf">list/domainset/download.conf</a>
-        <span class="size">19.24 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/domainset/download.conf">list/domainset/download.conf</a></td>
+        <td class="size">19.24 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/domainset/reject.conf">list/domainset/reject.conf</a>
-        <span class="size">2214.96 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/domainset/reject.conf">list/domainset/reject.conf</a></td>
+        <td class="size">2.16 MB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/domainset/speedtest.conf">list/domainset/speedtest.conf</a>
-        <span class="size">9.35 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/domainset/speedtest.conf">list/domainset/speedtest.conf</a></td>
+        <td class="size">9.35 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/ip/china_ip.conf">list/ip/china_ip.conf</a>
-        <span class="size">97.61 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/ip/china_ip.conf">list/ip/china_ip.conf</a></td>
+        <td class="size">97.61 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/ip/domestic.conf">list/ip/domestic.conf</a>
-        <span class="size">0.49 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/ip/domestic.conf">list/ip/domestic.conf</a></td>
+        <td class="size">506.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/ip/lan.conf">list/ip/lan.conf</a>
-        <span class="size">0.62 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/ip/lan.conf">list/ip/lan.conf</a></td>
+        <td class="size">633.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/ip/reject.conf">list/ip/reject.conf</a>
-        <span class="size">5.29 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/ip/reject.conf">list/ip/reject.conf</a></td>
+        <td class="size">5.29 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/ip/stream.conf">list/ip/stream.conf</a>
-        <span class="size">1.70 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/ip/stream.conf">list/ip/stream.conf</a></td>
+        <td class="size">1.70 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/ip/telegram.conf">list/ip/telegram.conf</a>
-        <span class="size">0.89 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/ip/telegram.conf">list/ip/telegram.conf</a></td>
+        <td class="size">913.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/ai.conf">list/non_ip/ai.conf</a>
-        <span class="size">1.38 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/ai.conf">list/non_ip/ai.conf</a></td>
+        <td class="size">1.38 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/apple_cdn.conf">list/non_ip/apple_cdn.conf</a>
-        <span class="size">7.03 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/apple_cdn.conf">list/non_ip/apple_cdn.conf</a></td>
+        <td class="size">7.03 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/apple_cn.conf">list/non_ip/apple_cn.conf</a>
-        <span class="size">0.70 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/apple_cn.conf">list/non_ip/apple_cn.conf</a></td>
+        <td class="size">717.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/apple_services.conf">list/non_ip/apple_services.conf</a>
-        <span class="size">1.08 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/apple_services.conf">list/non_ip/apple_services.conf</a></td>
+        <td class="size">1.08 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/cdn.conf">list/non_ip/cdn.conf</a>
-        <span class="size">2.04 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/cdn.conf">list/non_ip/cdn.conf</a></td>
+        <td class="size">2.04 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/domestic.conf">list/non_ip/domestic.conf</a>
-        <span class="size">19.44 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/domestic.conf">list/non_ip/domestic.conf</a></td>
+        <td class="size">19.44 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/download.conf">list/non_ip/download.conf</a>
-        <span class="size">0.60 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/download.conf">list/non_ip/download.conf</a></td>
+        <td class="size">610.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/global.conf">list/non_ip/global.conf</a>
-        <span class="size">18.14 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/global.conf">list/non_ip/global.conf</a></td>
+        <td class="size">18.14 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/lan.conf">list/non_ip/lan.conf</a>
-        <span class="size">0.41 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/lan.conf">list/non_ip/lan.conf</a></td>
+        <td class="size">415.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/microsoft.conf">list/non_ip/microsoft.conf</a>
-        <span class="size">2.56 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/microsoft.conf">list/non_ip/microsoft.conf</a></td>
+        <td class="size">2.56 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/microsoft_cdn.conf">list/non_ip/microsoft_cdn.conf</a>
-        <span class="size">1.27 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/microsoft_cdn.conf">list/non_ip/microsoft_cdn.conf</a></td>
+        <td class="size">1.27 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/paypal.conf">list/non_ip/paypal.conf</a>
-        <span class="size">7.68 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/paypal.conf">list/non_ip/paypal.conf</a></td>
+        <td class="size">7.68 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/reject-drop.conf">list/non_ip/reject-drop.conf</a>
-        <span class="size">0.56 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/reject-drop.conf">list/non_ip/reject-drop.conf</a></td>
+        <td class="size">573.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/reject-no-drop.conf">list/non_ip/reject-no-drop.conf</a>
-        <span class="size">0.61 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/reject-no-drop.conf">list/non_ip/reject-no-drop.conf</a></td>
+        <td class="size">621.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/reject.conf">list/non_ip/reject.conf</a>
-        <span class="size">5.35 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/reject.conf">list/non_ip/reject.conf</a></td>
+        <td class="size">5.35 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/stream.conf">list/non_ip/stream.conf</a>
-        <span class="size">9.81 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/stream.conf">list/non_ip/stream.conf</a></td>
+        <td class="size">9.81 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/list/non_ip/telegram.conf">list/non_ip/telegram.conf</a>
-        <span class="size">0.76 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/list/non_ip/telegram.conf">list/non_ip/telegram.conf</a></td>
+        <td class="size">774.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/modules/adblock.sgmodule">modules/adblock.sgmodule</a>
-        <span class="size">1.98 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/modules/adblock.sgmodule">modules/adblock.sgmodule</a></td>
+        <td class="size">1.98 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/modules/general.sgmodule">modules/general.sgmodule</a>
-        <span class="size">2.72 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/modules/general.sgmodule">modules/general.sgmodule</a></td>
+        <td class="size">2.72 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/modules/local_dns_mapping.sgmodule">modules/local_dns_mapping.sgmodule</a>
-        <span class="size">17.02 KB</span>
-      </div>
+      <tr>
+        <td class="name"><a href="/modules/local_dns_mapping.sgmodule">modules/local_dns_mapping.sgmodule</a></td>
+        <td class="size">17.02 KB</td>
+        <td class="date">2024-12-21</td>
+      </tr>
 
-      <div class="item">
-        <a href="/modules/router.sgmodule">modules/router.sgmodule</a>
-        <span class="size">0.91 KB</span>
-      </div>
-        <div class="update-time">
-            Last updated: Sat, 21 Dec 2024 01:52:09 GMT
+      <tr>
+        <td class="name"><a href="/modules/router.sgmodule">modules/router.sgmodule</a></td>
+        <td class="size">933.00 B</td>
+        <td class="date">2024-12-21</td>
+      </tr>
+            </tbody>
+        </table>
+        <div class="footer">
+            Generated on Sat, 21 Dec 2024 02:02:34 GMT
         </div>
     </div>
 </body>
