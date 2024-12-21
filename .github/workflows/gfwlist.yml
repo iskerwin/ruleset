@@ -27,7 +27,7 @@ jobs:
         pip install requests
         
     - name: Update GFWList
-      run: python scripts/gfwlist_converter.py
+      run: python .github/scripts/gfwlist_converter.py
         
     - name: Check for changes
       id: check_changes
