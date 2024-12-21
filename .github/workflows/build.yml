@@ -33,6 +33,7 @@ jobs:
                   p.includes('favicon') || 
                   p.includes('index.html') || 
                   p.includes('.file_hashes.json') || 
+                  p.includes('README.md') || 
                   p.includes('node_modules') ||
                   p === 'generate-index.js';
           }
