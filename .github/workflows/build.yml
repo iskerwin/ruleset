@@ -30,6 +30,7 @@ jobs:
           function shouldSkipPath(p) {
             return p.includes('.git') || 
                   p.includes('.github') || 
+                  p.includes('favicon') ||
                   p.includes('node_modules') ||
                   p === 'generate-index.js';
           }
