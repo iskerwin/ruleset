@@ -35,7 +35,7 @@ jobs:
           pip install requests
           
       - name: Update GFWList
-        run: python .github/scripts/gfwlist_converter.py
+        run: python .github/scripts/update_gfwlist.py
           
       - name: Check for changes
         id: check_changes
@@ -69,11 +69,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
           
+      - name: Create directories
+        run: mkdir -p list/ip
+          
       - name: Update Telegram IPs
         run: |
           python - <<EOF
+          import os
           import requests
           import ipaddress
+          from pathlib import Path
           
           def fetch_telegram_ips():
               url = 'https://core.telegram.org/resources/cidr.txt'
@@ -87,15 +92,35 @@ jobs:
               return f"{prefix},{ip_range},no-resolve"
           
           try:
+              # 确保目录存在
+              output_dir = Path('list/ip')
+              output_dir.mkdir(parents=True, exist_ok=True)
+              
+              output_file = output_dir / 'telegram.conf'
+              
+              # 获取和处理IP范围
               ip_ranges = fetch_telegram_ips()
               formatted_ranges = [format_ip_range(ip_range) for ip_range in ip_ranges]
               
-              with open('list/ip/telegram.conf', 'w') as f:
+              # 写入文件
+              with open(output_file, 'w') as f:
                   f.write('\n'.join(formatted_ranges))
               
-              print("Successfully updated Telegram IP ranges")
+              print(f"Successfully updated Telegram IP ranges to {output_file}")
+              
+              # 验证文件是否写入成功
+              if not output_file.exists():
+                  raise Exception(f"Failed to create {output_file}")
+              
+              # 打印文件内容用于调试
+              print("\nFile contents:")
+              with open(output_file, 'r') as f:
+                  print(f.read())
+                  
           except Exception as e:
               print(f"Error updating IP ranges: {e}")
+              print(f"Current working directory: {os.getcwd()}")
+              print(f"Directory contents: {os.listdir('.')}")
               exit(1)
           EOF
           
