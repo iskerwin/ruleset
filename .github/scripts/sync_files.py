@@ -34,7 +34,7 @@ FILES_CONFIG = {
     "https://ruleset.skk.moe/List/non_ip/reject.conf"         : "list/non_ip/reject.conf",
     "https://ruleset.skk.moe/List/non_ip/stream.conf"         : "list/non_ip/stream.conf",
     "https://ruleset.skk.moe/List/non_ip/telegram.conf"       : "list/non_ip/telegram.conf",
-    "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/PayPal/PayPal.list" : "list/non_ip/paypal.config",
+    "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Surge/PayPal/PayPal.list" : "list/non_ip/paypal.conf",
 }
 
 def get_file_hash(content):
