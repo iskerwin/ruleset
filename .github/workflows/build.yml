@@ -1,4 +1,4 @@
-name: Generate Index
+name: Generate Directory Index
 
 on:
   push:
@@ -16,33 +16,62 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+          cache: 'npm'
           
-      - name: Generate Index
+      - name: Create package.json
         run: |
-          cat > generate-index.js << 'EOF'
-          const fs = require('fs');
-          const path = require('path');
-
-          function shouldSkipPath(p) {
-            return p.includes('.git') || 
-                  p.includes('.github') || 
-                  p.includes('favicon') || 
-                  p.includes('index.html') || 
-                  p.includes('.file_hashes.json') || 
-                  p.includes('README.md') || 
-                  p.includes('node_modules') ||
-                  p === 'generate-index.js';
+          cat > package.json << 'EOF'
+          {
+            "name": "directory-indexer",
+            "version": "1.0.0",
+            "type": "module",
+            "scripts": {
+              "build": "node src/index.js"
+            },
+            "dependencies": {
+              "chalk": "^5.3.0"
+            }
           }
+          EOF
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Setup project structure
+        run: |
+          mkdir -p src/utils src/templates src/styles
+          
+      - name: Create source files
+        run: |
+          # Create utility functions
+          cat > src/utils/fileSystem.js << 'EOF'
+          import fs from 'fs';
+          import path from 'path';
 
-          function getFileTree(dir, baseDir = '') {
-            let results = [];
+          export const shouldSkipPath = (p) => {
+            const skipPatterns = [
+              '.git',
+              '.github',
+              'favicon',
+              'index.html',
+              '.file_hashes.json',
+              'README.md',
+              'node_modules',
+              'src',
+              'package.json'
+            ];
+            return skipPatterns.some(pattern => p.includes(pattern));
+          };
+
+          export const getFileTree = (dir, baseDir = '') => {
+            const results = [];
             const list = fs.readdirSync(dir);
             
-            // 首先处理目录
+            // Process directories first
             list.forEach(file => {
               const fullPath = path.join(dir, file);
               const relativePath = path.join(baseDir, file);
@@ -50,7 +79,7 @@ jobs:
               if (shouldSkipPath(fullPath)) return;
               
               const stat = fs.statSync(fullPath);
-              if (stat && stat.isDirectory()) {
+              if (stat?.isDirectory()) {
                 results.push({
                   name: file,
                   path: relativePath,
@@ -60,7 +89,7 @@ jobs:
               }
             });
             
-            // 然后处理文件
+            // Then process files
             list.forEach(file => {
               const fullPath = path.join(dir, file);
               const relativePath = path.join(baseDir, file);
@@ -68,7 +97,7 @@ jobs:
               if (shouldSkipPath(fullPath)) return;
               
               const stat = fs.statSync(fullPath);
-              if (stat && !stat.isDirectory()) {
+              if (stat?.isFile()) {
                 results.push({
                   name: file,
                   path: relativePath,
@@ -78,18 +107,17 @@ jobs:
             });
             
             return results.sort((a, b) => {
-              // 目录优先
-              if (a.type !== b.type) {
-                return a.type === 'directory' ? -1 : 1;
-              }
-              // 然后按名称排序
+              if (a.type !== b.type) return a.type === 'directory' ? -1 : 1;
               return a.name.localeCompare(b.name);
             });
-          }
+          };
+          EOF
 
-          function generateTreeHTML(items, level = 0) {
+          # Create HTML template
+          cat > src/templates/template.js << 'EOF'
+          export const generateTreeHTML = (items, level = 0) => {
             return items.map(item => {
-              const indent = level * 20; // 减小缩进距离
+              const indent = level * 20;
               const isDirectory = item.type === 'directory';
               const icon = isDirectory ? 
                 '<svg class="icon" viewBox="0 0 16 16"><path fill="currentColor" d="M1.75 2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25H7.5c-.55 0-1.07-.26-1.4-.7l-.9-1.2a.25.25 0 00-.2-.1H1.75z"/></svg>' : 
@@ -98,11 +126,11 @@ jobs:
               const verticalLine = level > 0 ? `<div class="vertical-line" style="left: ${indent - 10}px"></div>` : '';
 
               let html = `
-                <tr>
+                <tr class="item-row">
                   <td class="name" style="padding-left: ${indent}px">
                     ${verticalLine}
                     ${icon}
-                    <a href="/${item.path}" class="${isDirectory ? 'directory' : 'file'}">${item.name}</a>
+                    <a href="/${item.path}" class="${isDirectory ? 'directory' : 'file'}" data-type="${item.type}">${item.name}</a>
                   </td>
                 </tr>`;
 
@@ -112,123 +140,223 @@ jobs:
 
               return html;
             }).join('');
-          }
+          };
 
-          function generateHTML(tree) {
+          export const generateHTML = (tree) => {
             return `
           <!DOCTYPE html>
           <html lang="en">
           <head>
               <meta charset="utf-8">
               <meta name="viewport" content="width=device-width, initial-scale=1">
-              <title>Ruleset for Surge</title>
-              <link href="https://ruleset.kerwin.us.kg/favicon/favicon.ico" rel="icon" type="image/ico">
-              <link href="https://ruleset.kerwin.us.kg/favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
-              <link href="https://ruleset.kerwin.us.kg/favicon/android-chrome-192x192.png" rel="icon" type="image/png" sizes="192x192">
-              <link href="https://ruleset.kerwin.us.kg/favicon/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
-              <link href="https://ruleset.kerwin.us.kg/favicon/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
-              <meta name="description" content="Surge 规则组">
+              <title>Directory Index</title>
+              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css">
               <style>
-                  :root {
-                      --text-primary: #24292f;
-                      --text-secondary: #57606a;
-                      --link-color: #57606a;
-                      --hover-color: #0969da;
-                  }
-                  
-                  body {
-                      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-                      line-height: 1.5;
-                      margin: 0;
-                      padding: 20px;
-                      color: var(--text-primary);
-                      background: #fff;
-                  }
-                  
-                  .container {
-                      max-width: 1000px;
-                      margin: 0 auto;
-                  }
-                  
-                  h1 {
-                      font-size: 24px;
-                      font-weight: 600;
-                      margin-bottom: 16px;
-                      color: var(--text-primary);
-                  }
-                  
-                  table {
-                      width: 100%;
-                      border-collapse: collapse;
-                  }
-                  
-                  td {
-                      padding: 4px 0;
-                      position: relative;
-                  }
-                  
-                  .name {
-                      display: flex;
-                      align-items: center;
-                      position: relative;
-                  }
-                  
-                  .icon {
-                      width: 16px;
-                      height: 16px;
-                      margin-right: 4px;
-                      color: var(--text-secondary);
-                      flex-shrink: 0;
-                  }
-                  
-                  .vertical-line {
-                      position: absolute;
-                      width: 2px;
-                      height: 100%;
-                      background: #eaecef;
-                      top: 0;
-                  }
-                  
-                  a {
-                      color: var(--link-color);
-                      text-decoration: none;
-                      font-size: 14px;
-                  }
-                  
-                  a:hover {
-                      color: var(--hover-color);
-                      text-decoration: underline;
-                  }
-                  
-                  .directory {
-                      font-weight: 600;
-                  }
-                  
-                  .file {
-                      font-weight: normal;
-                  }
+                ${getCSSContent()}
               </style>
           </head>
           <body>
               <div class="container">
-                  <h1>Ruleset for Surge</h1>
-                  <table>
-                      <tbody>
-                          ${generateTreeHTML(tree)}
-                      </tbody>
-                  </table>
+                  <header>
+                      <h1>Directory Index</h1>
+                      <div class="search-container">
+                          <input type="text" id="search" placeholder="Search files..." aria-label="Search files">
+                      </div>
+                  </header>
+                  <main>
+                      <table>
+                          <tbody>
+                              ${generateTreeHTML(tree)}
+                          </tbody>
+                      </table>
+                  </main>
+                  <footer>
+                      <p>Generated on ${new Date().toLocaleString()}</p>
+                  </footer>
               </div>
+              <script>
+                ${getJavaScriptContent()}
+              </script>
           </body>
           </html>`;
-          }
+          };
 
-          const tree = getFileTree('.');
-          const html = generateHTML(tree);
-          fs.writeFileSync('index.html', html);
+          const getCSSContent = () => `
+            :root {
+                --bg-primary: #ffffff;
+                --bg-secondary: #f6f8fa;
+                --text-primary: #24292f;
+                --text-secondary: #57606a;
+                --link-color: #0969da;
+                --border-color: #d0d7de;
+                --hover-bg: #f6f8fa;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --bg-primary: #0d1117;
+                    --bg-secondary: #161b22;
+                    --text-primary: #c9d1d9;
+                    --text-secondary: #8b949e;
+                    --link-color: #58a6ff;
+                    --border-color: #30363d;
+                    --hover-bg: #161b22;
+                }
+            }
+
+            body {
+                background: var(--bg-primary);
+                color: var(--text-primary);
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+                line-height: 1.5;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 2rem;
+            }
+
+            header {
+                margin-bottom: 2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin: 0;
+            }
+
+            .search-container {
+                flex-grow: 1;
+                max-width: 300px;
+            }
+
+            #search {
+                width: 100%;
+                padding: 0.5rem;
+                border: 1px solid var(--border-color);
+                border-radius: 6px;
+                background: var(--bg-secondary);
+                color: var(--text-primary);
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .item-row:hover {
+                background: var(--hover-bg);
+            }
+
+            .name {
+                display: flex;
+                align-items: center;
+                padding: 0.5rem 0;
+                position: relative;
+            }
+
+            .icon {
+                width: 16px;
+                height: 16px;
+                margin-right: 8px;
+                color: var(--text-secondary);
+            }
+
+            .vertical-line {
+                position: absolute;
+                width: 2px;
+                background: var(--border-color);
+                height: 100%;
+            }
+
+            a {
+                color: var(--link-color);
+                text-decoration: none;
+                font-size: 0.9rem;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .directory {
+                font-weight: 600;
+            }
+
+            footer {
+                margin-top: 2rem;
+                padding-top: 1rem;
+                border-top: 1px solid var(--border-color);
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    padding: 1rem;
+                }
+
+                header {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+
+                .search-container {
+                    max-width: none;
+                }
+            }
+          `;
+
+          const getJavaScriptContent = () => `
+            document.addEventListener('DOMContentLoaded', () => {
+                const searchInput = document.getElementById('search');
+                const rows = document.querySelectorAll('.item-row');
+
+                searchInput.addEventListener('input', (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    
+                    rows.forEach(row => {
+                        const link = row.querySelector('a');
+                        const fileName = link.textContent.toLowerCase();
+                        const isVisible = fileName.includes(searchTerm);
+                        row.style.display = isVisible ? '' : 'none';
+                    });
+                });
+            });
+          `;
           EOF
 
-          node generate-index.js
+          # Create main index file
+          cat > src/index.js << 'EOF'
+          import fs from 'fs';
+          import { getFileTree } from './utils/fileSystem.js';
+          import { generateHTML } from './templates/template.js';
+          import chalk from 'chalk';
+
+          try {
+            console.log(chalk.blue('Starting directory index generation...'));
+            
+            const tree = getFileTree('.');
+            const html = generateHTML(tree);
+            
+            fs.writeFileSync('index.html', html);
+            
+            console.log(chalk.green('✓ Successfully generated index.html'));
+          } catch (error) {
+            console.error(chalk.red('Error generating index:'), error);
+            process.exit(1);
+          }
+          EOF
           
+      - name: Generate index
+        run: npm run build
+        
       - name: Commit and Push
         run: |
           git config --local user.email "action@github.com"
