@@ -1,6 +1,6 @@
 #!name=Local DNS Mapping
 #!desc=路由器管理面板
-#!url=https://proxy.kerwin.us.kg/modules/router.sgmodule
+#!url=https://ruleset-7en.pages.dev/modules/router.sgmodule
 
 [Host]
 melogin.cn = server:syslib // MERCURY Router

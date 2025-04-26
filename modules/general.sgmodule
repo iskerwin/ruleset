@@ -1,6 +1,6 @@
 #!name=Advanced Settings & URL Redirect
 #!desc=高级设置及通用的 URL 重定向优化（如 Google 搜索、地图、AbeamTV 区域限制等）
-#!url=https://proxy.kerwin.us.kg/modules/general.sgmodule
+#!url=https://ruleset-7en.pages.dev/modules/general.sgmodule
 
 [General]
 # 跳过代理的 IP 范围和域名

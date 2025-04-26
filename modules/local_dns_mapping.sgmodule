@@ -1,6 +1,6 @@
 #!name=Local DNS Mapping
 #!desc=常用网站 DNS 映射
-#!url=https://proxy.kerwin.us.kg/modules/local_dns_mapping.sgmodule
+#!url=https://ruleset-7en.pages.dev/modules/local_dns_mapping.sgmodule
 
 [Host]
 dns.alidns.com = 223.5.5.5, 223.6.6.6, 2400:3200:baba::1, 2400:3200::1
