@@ -1,6 +1,6 @@
 #!name=Enhance Better ADBlock for Surge
 #!desc=增强 ADBlock 效果、恢复网站正常功能
-#!url=# https://ruleset-7en.pages.dev/modules/adblock.sgmodule
+#!url=# https://ruleset.kerwin.dpdns.org/modules/adblock.sgmodule
 
 [MITM]
 hostname = %APPEND% *.google-analytics.com, *.googletagmanager.com, *.googlesyndication.com, *.googletagservices.com, *.doubleclick.net, cdn.ampproject.org, *.addthis.com, static.chartbeat.com, widgets.outbrain.com
