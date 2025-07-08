@@ -18,6 +18,7 @@ FILES_CONFIG = {
     "https://ruleset.skk.moe/List/ip/lan.conf"                : "list/ip/lan.conf",
     "https://ruleset.skk.moe/List/ip/reject.conf"             : "list/ip/reject.conf",
     "https://ruleset.skk.moe/List/ip/stream.conf"             : "list/ip/stream.conf",
+    "https://ruleset.skk.moe/List/ip/china_ip.conf"           : "list/ip/china_ip.conf",
     "https://ruleset.skk.moe/List/non_ip/ai.conf"             : "list/non_ip/ai.conf",
     "https://ruleset.skk.moe/List/non_ip/apple_cdn.conf"      : "list/non_ip/apple_cdn.conf",
     "https://ruleset.skk.moe/List/non_ip/apple_cn.conf"       : "list/non_ip/apple_cn.conf",
